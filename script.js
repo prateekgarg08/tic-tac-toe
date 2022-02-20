@@ -1,14 +1,8 @@
-const gameBoardArray = [
+let gameBoardArray = [
   [" ", " ", " "],
   [" ", " ", " "],
   [" ", " ", " "],
 ];
-
-document.querySelectorAll(".gb-item").forEach((item) => {
-  console.log(item);
-  item.innerHTML = gameBoardArray[item.dataset.gby][item.dataset.gbx];
-  item.addEventListener("click", () => updatePlay(item));
-});
 
 const Player = (name, sign) => {
   return { name, sign };
@@ -19,18 +13,24 @@ const player2 = Player("NotPrateek", "X");
 let currentPlayer = player1;
 
 const current = document.getElementById("current");
+const cong = document.getElementById("cong");
+
 current.innerText = `${currentPlayer.name} : ${currentPlayer.sign}`;
 
 let moves = 0;
 const updatePlay = (item) => {
+  cong.innerHTML = "";
   moves++;
   gameBoardArray[item.dataset.gby][item.dataset.gbx] = currentPlayer.sign;
   item.innerText = currentPlayer.sign;
   if (checkGame(currentPlayer.sign, item.dataset.gbx, item.dataset.gby)) {
-    current.innerText = `${currentPlayer.name} wins`;
+    cong.innerText = `${currentPlayer.name} wins`;
+    resetGame();
     console.log("win");
     return;
   } else if (moves == 9) {
+    cong.innerText = `Draw`;
+    resetGame();
     console.log("draw");
   }
   if (currentPlayer == player1) {
@@ -152,3 +152,45 @@ const checkGame = (sign, posx, posy) => {
   };
   return checkHorizontal() || checkVertical() || checkDiagonal1() || checkDiagonal2();
 };
+const game = () => {
+  document.querySelectorAll(".gb-item").forEach((item) => {
+    console.log(item);
+    item.innerHTML = gameBoardArray[item.dataset.gby][item.dataset.gbx];
+    item.addEventListener("click", () => updatePlay(item));
+  });
+};
+game();
+
+const resetGame = () => {
+  moves = 0;
+  gameBoardArray = [
+    [" ", " ", " "],
+    [" ", " ", " "],
+    [" ", " ", " "],
+  ];
+
+  currentPlayer = player1;
+  current.innerText = `${currentPlayer.name} : ${currentPlayer.sign}`;
+  document.querySelectorAll(".gb-item").forEach((item) => {
+    console.log(item);
+    item.removeEventListener("click", updatePlay);
+    item.innerHTML = gameBoardArray[item.dataset.gby][item.dataset.gbx];
+  });
+};
+
+document.getElementById("resetbtn").addEventListener("click", () => {
+  resetGame();
+  cong.innerHTML = "";
+});
+
+const btn1 = document.getElementById("btn1");
+const btn2 = document.getElementById("btn2");
+
+btn1.addEventListener("click", () => {
+  player1.name = document.getElementById("name1").value;
+  current.innerText = `${currentPlayer.name} : ${currentPlayer.sign}`;
+});
+btn2.addEventListener("click", () => {
+  player2.name = document.getElementById("name2").value;
+  current.innerText = `${currentPlayer.name} : ${currentPlayer.sign}`;
+});

@@ -23,6 +23,7 @@
   </head>
   <body>
     <div class="container">
+      <h1 id="cong"></h1>
       <h2 id="current"></h2>
       <div class="gameboard">
         <div class="row gx-0">
@@ -37,6 +38,19 @@
           <div class="col-4"><div data-gbx="2" data-gby="2" class="gb-item"></div></div>
         </div>
       </div>
+      <div class="row">
+        <div class="col-lg-6">
+          <label for="name1">Enter Player 1 name</label>
+          <input id="name1" type="text" required />
+          <button id="btn1" type="button">Enter</button>
+        </div>
+        <div class="col-lg-6">
+          <label for="name2">Enter Player 2 name</label>
+          <input id="name2" type="text" required />
+          <button id="btn2" type="button">Enter</button>
+        </div>
+      </div>
+      <button id="resetbtn">Reset</button>
     </div>
     <script src="./script.js"></script>
   </body>
