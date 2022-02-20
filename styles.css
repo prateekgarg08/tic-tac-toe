@@ -1,0 +1,15 @@
+.gameboard {
+  width: 500px;
+  background-color: rgb(243, 174, 174);
+}
+
+.gb-item {
+  height: 100px;
+  border: 1px solid black;
+
+  /* margin: 12px 0; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+}
