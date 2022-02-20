@@ -10,20 +10,26 @@ document.querySelectorAll(".gb-item").forEach((item) => {
   item.addEventListener("click", () => updatePlay(item));
 });
 
-const Player = (sign) => {
-  return { sign };
+const Player = (name, sign) => {
+  return { name, sign };
 };
 
-const player1 = Player("O");
-const player2 = Player("X");
+const player1 = Player("Prateek", "O");
+const player2 = Player("NotPrateek", "X");
 let currentPlayer = player1;
+
+const current = document.getElementById("current");
+current.innerText = `${currentPlayer.name} : ${currentPlayer.sign}`;
+
 let moves = 0;
 const updatePlay = (item) => {
   moves++;
   gameBoardArray[item.dataset.gby][item.dataset.gbx] = currentPlayer.sign;
   item.innerText = currentPlayer.sign;
   if (checkGame(currentPlayer.sign, item.dataset.gbx, item.dataset.gby)) {
+    current.innerText = `${currentPlayer.name} wins`;
     console.log("win");
+    return;
   } else if (moves == 9) {
     console.log("draw");
   }
@@ -32,6 +38,7 @@ const updatePlay = (item) => {
   } else if (currentPlayer == player2) {
     currentPlayer = player1;
   }
+  current.innerText = `${currentPlayer.name} : ${currentPlayer.sign}`;
 };
 
 const checkGame = (sign, posx, posy) => {
